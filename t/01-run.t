@@ -11,20 +11,15 @@ BEGIN {
     use_ok( 'Submodules', 'walk' ) || print "Bail out!\n";
 }
 
-my @expected = qw(
+my @known = qw(
 	Some
-	Some::Module
+	Some::Modules
 	Some::More
 	Some::Xtras
-	Some::Module::Functions
-	Some::Module::Methods
-	Some
-	Some::Module
-	Some::More
-	Some::Xtras
-	Some::Module::Functions
-	Some::Module::Methods
+	Some::Modules::Functions
+	Some::Modules::Methods
 );
+my $expected = { map { $_ => 0 } @known };
 my @found;
 my @found2;
 
@@ -32,21 +27,38 @@ for my $i (Submodules->find) {
 	die "I got something that is not a Submodules::Result object" unless ref($i) eq 'Submodules::Result';
 	next unless $i->{RelPath} =~ /fakelib/;
 	push @found, $i;
+	$expected->{$i}++;
 }
+
+my ($keys, $sum);
+for my $i (keys %$expected) {
+	$keys++;
+	$sum += $expected->{$i};
+}
+my $res = ($keys == 6 and $sum == 12);
+is $res, 1, "Found expected modules (keys $keys, sum $sum)";
 
 for my $i (walk Some) {
 	die "I got something that is not a Submodules::Result object" unless ref($i) eq 'Submodules::Result';
 	next unless $i->{RelPath} =~ /fakelib/;
 	push @found2, $i;
+	$expected->{$i}++;
 }
 
+($keys, $sum) = (0, 0);
+for my $i (keys %$expected) {
+	$keys++;
+	$sum += $expected->{$i};
+}
+$res = ($keys == 6 and $sum == 24);
+is $res, 1, "Found expected modules (keys $keys, sum $sum)";
+
 for (my $n = 0; $n < @found2; $n++) {
-	is "$found2[$n]", "$found[$n]", 'Method find and created "walk" function got the same results';
+	is "$found2[$n]", "$found[$n]", "Method find and created 'walk' function got the same result $found[$n]";
 }
 
 for (my $n = 0; $n < @found; $n++) {
 	my $i = $found[$n];
-	is "$i", $expected[$n], "$i as expected";
 	is ref($i), 'Submodules::Result', qq[$i is a Submodules::Result object];
 	if ($n >= 6) {
 		is $i->Clobber, $found[$n - 6]->AbsPath, "$i->{RelPath} is clobbered as expected by $found[$n - 6]->{AbsPath}";

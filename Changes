@@ -2,3 +2,6 @@ Revision history for Submodules
 
 1.0000  2015-10-08
         First version, released on an unsuspecting world.
+1.0002  2015-10-08
+        Improved documentation as per RT107649.
+        Fixed tests that are failing in some Linux platforms

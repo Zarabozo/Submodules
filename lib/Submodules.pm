@@ -6,7 +6,7 @@ use File::Spec;
 use File::Find qw();
 use Carp;
 use File::Basename;
-our $VERSION = '1.0000';
+our $VERSION = '1.0002';
 
 my $names;
 
@@ -161,19 +161,17 @@ can use this module in a very efficient way:
     package MyModule;
     use Submodules;
     for my $i (Submodules->find) {
-        $i->use;
+        $i->require;
     }
     
     # Maybe you need to do the same for
     # a package different than the current:
     
     for my $i (Submodules->find('LWP')) { # All LWP & LWP submodules
-        $i->use;
+        $i->require;
     }
     
-    # Or maybe you only want the code loaded
-    # without importing anything, and just for
-    # a subset:
+    # Or maybe you only want a subset:
     
     for my $i (Submodules->find('LWP::Protocol')) { # All LWP protocols
         $i->require;
@@ -182,13 +180,13 @@ can use this module in a very efficient way:
 Not only that will save you lots of lines, but it will always include new submodules without you having
 to go back to this one to include them.
 
-Each of the elements returned by the L<find> method is an instance of L<Submodules::Result>,
+Each of the elements returned by the L<Submodules/find> method is an instance of L<Submodules::Result>,
 which is automagically stringified to the name of the module (as in Some::Module) but has
 useful methods that can do a lot more.
 
 =head1 EXPORT
 
-Nothing is exported by default. However, you can import a non OO version of L<find> with the
+Nothing is exported by default. However, you can import a non OO version of L<Submodules/find> with the
 name that you prefere. For example, let's say you'd like that function to be called I<walk>.
 You'd then call this module like this:
 
@@ -216,26 +214,26 @@ For example:
 
     # This will find all submodules from the current package
     for my $i (Submodules->find) {
-        $i->use;
-        say "Importing (use) $i";
+        $i->require;
+        say "Required $i";
     }
     
     # This will find all submodules from package LWP::Protocol
     for my $i (Submodules->find('LWP::Protocol')) {
         $i->require;
-        say "Requiring $i";
+        say "Required $i";
     }
 
 Read the documentation for L<Submodules::Result> to learn about its own methods.
 
 =head2 Importing a custom 'find' name that is not object oriented
 
-You can import a non object oriented version of L<find> that also accepts module names
+You can import a non object oriented version of L<Submodules/find> that also accepts module names
 without quoting them (barewords). This might be more for the taste of some and considered
 ugly by others. It all depends on you, nothing gets imported by default.
 
 You can chose any valid function name for it and it will be created as long as it is
-not already defined in that namespace. It will, just like L<find>, return instances of
+not already defined in that namespace. It will, just like L<Submodules/find>, return instances of
 L<Submodules::Result>.
 
 For example:

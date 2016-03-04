@@ -8,7 +8,7 @@ use overload (
 	'""'		=> 'SCALAR',
 );
 our $AUTOLOAD;
-our $VERSION = '1.0000';
+our $VERSION = '1.0002';
 our @CARP_NOT = qw(Submodules);
 our $default_property = 'Module';
 our $SCALAR = sub {
@@ -112,8 +112,10 @@ interpolation, you can access its properties as you would with a hashref:
     package MyModule;
     use Submodules;
     for my $i (Submodules->find) {
-        $i->use;  # Equivalent to 'use Some::Module'
-        $i->require; # Equivalent to 'require Some::Module'
+        next if $i->Clobber; # Important
+        
+        $i->require;
+        # Equivalent to 'require Some::Module'
         
         print "I found $i";
         # Will print: I found Some::Module
@@ -165,7 +167,7 @@ directly from L<File::Spec>.
 
 =head2 RelPath
 
-Correspods to the relative path to the module. Similar to L<AbsPath> except for being relative to
+Correspods to the relative path to the module. Similar to L<Submodules::Result/AbsPath> except for being relative to
 the location of the current execution.
 
 =head2 Clobber
@@ -176,9 +178,12 @@ is masking this one. One example of this would be a core module that came with P
 but was later upgraded and installed into the site/lib section. It's value is the absolute path
 to the first module that is directly masking it.
 
+B<IMPORTANT:> You should always test for this property and B<not> load the code when true, unless
+you know what you are doing and you actually intended to use this module for that very purpose.
+
 =head1 METHODS
 
-As mentioned in L<PROPERTIES>, all properties can be called as methods too. Besides that, there are
+As mentioned in L<Submodules::Result/PROPERTIES>, all properties can be called as methods too. Besides that, there are
 a few more useful methods:
 
 =head2 read
@@ -193,9 +198,31 @@ will die. Nothing gets imported.
 
 =head2 use
 
-This acts just like Perl's C<use>, meaning that it will do the same as in L<require>, but it will
-also call C<< ->use >> into the current namespace. For some modules and features (like prototypes),
-this should be called inside a C<BEGIN> block to force its execution at compile time.
+B<Use properly!>
+
+This acts just like Perl's C<use>, meaning that it will do the same as in C<require>, but it will
+also call C<< ->import >> into the current namespace. However, you should understand that the
+native Perl's C<use> is generally executed at I<compile> time. For some modules and its features
+(like prototypes, constants, function names that can be used without parenthesis, and many other 
+things), executing all that in compile time is crucial and can result in unexpected and hard to debug
+erros when executed at runtime.
+
+To avoid this, either use it only in modules that are supposed to be loaded at compile time (via C<use>
+from another script calling it), or place your code inside a C<BEGIN> block to force its execution 
+at compile time.
+
+This is an example:
+
+    use strict;
+    use warnings;
+    use Submodules;
+    
+    BEGIN {
+        for my $i (Submodules->find('LWP::Protocol')) {
+            next if $i->Clobber;
+            $i->use;
+        }
+    }
 
 =head2 new
 

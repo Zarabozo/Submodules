@@ -1,4 +1,4 @@
-package Some::Module;
+package Some::Modules::Methods;
 use strict;
 use warnings;
 our $VERSION = '1.0';
