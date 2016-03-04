@@ -15,3 +15,6 @@ Revision history for Submodules
 		cause a rather confusing warning in some cases when not present.
 1.0010  2016-02-24
 		Minor adjustments for PAUSE
+1.0012  2016-02-25
+		Added fixes that were supposed to be present in 1.0008 dist but weren't.
+		Minor adjustments for PAUSE

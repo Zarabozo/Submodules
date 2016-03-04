@@ -8,7 +8,7 @@ use overload (
 	'""'		=> 'SCALAR',
 );
 our $AUTOLOAD;
-our $VERSION = '1.0010';
+our $VERSION = '1.0012';
 our @CARP_NOT = qw(Submodules);
 our $default_property = 'Module';
 our $SCALAR = sub {
@@ -89,6 +89,15 @@ sub AUTOLOAD : lvalue {
 		croak "Unknown method or property '$name': $@" if $@;
 	}
     $$lvalue;
+}
+
+sub DESTROY {
+	my $self = shift;
+	for my $k (keys %$self) {
+		undef $self->{$k};
+		delete $self->{$k};
+	}
+	undef $self;
 }
 
 1;

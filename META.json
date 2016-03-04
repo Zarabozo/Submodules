@@ -4,7 +4,7 @@
       "Francisco Zarabozo <zarabozo@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.98, CPAN::Meta::Converter version 2.150001",
+   "generated_by" : "ExtUtils::MakeMaker version 7.1, CPAN::Meta::Converter version 2.150001",
    "license" : [
       "perl_5"
    ],
@@ -45,5 +45,5 @@
       }
    },
    "release_status" : "stable",
-   "version" : "1.0010"
+   "version" : "1.0012"
 }

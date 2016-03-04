@@ -6,7 +6,7 @@ use File::Spec;
 use File::Find qw();
 use Carp;
 use File::Basename;
-our $VERSION = '1.0010';
+our $VERSION = '1.0012';
 
 my $names;
 
