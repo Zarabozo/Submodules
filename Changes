@@ -5,3 +5,5 @@ Revision history for Submodules
 1.0002  2015-10-08
         Improved documentation as per RT107649.
         Fixed tests that are failing in some Linux platforms
+1.0004  2015-10-09
+        Fixed bug affecting old versions of Perl (5.14 and older)

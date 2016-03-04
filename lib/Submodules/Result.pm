@@ -8,7 +8,7 @@ use overload (
 	'""'		=> 'SCALAR',
 );
 our $AUTOLOAD;
-our $VERSION = '1.0002';
+our $VERSION = '1.0004';
 our @CARP_NOT = qw(Submodules);
 our $default_property = 'Module';
 our $SCALAR = sub {
@@ -79,14 +79,16 @@ sub read {
 sub AUTOLOAD : lvalue {
 	(my $name = $AUTOLOAD) =~ s/^.+:://;
 	my $self = shift;
+    my $lvalue;
 	if (exists $self->{$name}) {
-		$self->{$name};
+		$lvalue = \($self->{$name});
 	} else {
 		eval {
-			$self->{$default_property}->$name;
+			$lvalue = \($self->{$default_property}->$name);
 		};
 		croak "Unknown method or property '$name': $@" if $@;
 	}
+    $$lvalue;
 }
 
 1;

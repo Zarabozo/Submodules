@@ -25,4 +25,4 @@ requires:
   File::Find: '0'
   File::Spec: '0'
   perl: '5.006'
-version: '1.0002'
+version: '1.0004'
