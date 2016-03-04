@@ -13,3 +13,5 @@ Revision history for Submodules
 1.0008  2016-02-24
 		Added DESTROY method to Submodules::Result which would
 		cause a rather confusing warning in some cases when not present.
+1.0010  2016-02-24
+		Minor adjustments for PAUSE
