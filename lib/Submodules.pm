@@ -6,7 +6,7 @@ use File::Spec;
 use File::Find qw();
 use Carp;
 use File::Basename;
-our $VERSION = '1.0012';
+our $VERSION = '1.0014';
 
 my $names;
 
@@ -14,7 +14,7 @@ sub import {
 	my $self = shift;
 	my $pack = caller;
 	my $name = shift;
-	if (length $name) {
+	if (defined($name) and length $name) {
 		no strict 'refs';
 		croak "Cannot export symbol '&${pack}::$name' because it's already defined" if defined &{"${pack}::$name"};
 		*{"${pack}::$name"} = \&submodules;

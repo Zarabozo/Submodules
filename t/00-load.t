@@ -2,10 +2,8 @@
 use 5.006;
 use strict;
 use warnings;
-use Test::More;
+use Test::More tests => 2;
 use lib 'lib';
-
-plan tests => 2;
 
 BEGIN {
     use_ok( 'Submodules' ) || print "Bail out!\n";

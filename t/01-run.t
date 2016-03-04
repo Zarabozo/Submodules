@@ -2,7 +2,7 @@ package Some;
 use 5.006;
 use strict;
 use warnings;
-use Test::More;
+use Test::More tests => 76;
 use lib 'lib';
 use lib 't/fakelib2';
 use lib 't/fakelib';
@@ -57,11 +57,18 @@ for (my $n = 0; $n < @found2; $n++) {
 	is "$found2[$n]", "$found[$n]", "Method find and created 'walk' function got the same result $found[$n]";
 }
 
+is @found, 12, '12 elements in list';
+
+diag "Found elements:";
+for my $i (@found) {
+	diag $i;
+}
+
 for (my $n = 0; $n < @found; $n++) {
 	my $i = $found[$n];
 	is ref($i), 'Submodules::Result', qq[$i is a Submodules::Result object];
 	if ($n >= 6) {
-		is $i->Clobber, $found[$n - 6]->AbsPath, "$i->{RelPath} is clobbered as expected by $found[$n - 6]->{AbsPath}";
+		is $found[$n - 6]->AbsPath, $i->Clobber, "$i->{RelPath} is clobbered as expected by $i->{Clobber}: got $found[$n - 6]->{AbsPath}";
 	}
 	unless ($i->Clobber) {
 		no strict 'refs';
@@ -74,6 +81,4 @@ for (my $n = 0; $n < @found; $n++) {
 		is "$i"->package, "$i", "'package' method returned correct response";
 	}
 }
-
-done_testing;
 

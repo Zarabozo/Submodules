@@ -18,3 +18,5 @@ Revision history for Submodules
 1.0012  2016-02-25
 		Added fixes that were supposed to be present in 1.0008 dist but weren't.
 		Minor adjustments for PAUSE
+1.0014  2016-02-25
+		Fixed - import method was causing a warning in old versions of Perl.
