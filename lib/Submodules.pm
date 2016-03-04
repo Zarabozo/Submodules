@@ -6,7 +6,7 @@ use File::Spec;
 use File::Find qw();
 use Carp;
 use File::Basename;
-our $VERSION = '1.0004';
+our $VERSION = '1.0006';
 
 my $names;
 
@@ -129,10 +129,6 @@ __END__
 
 Submodules - Efficient way to load or handle all submodules for a specific package.
 
-=head1 VERSION
-
-Version 1.0000
-
 =head1 SYNOPSIS
 
 This module will walk the paths that Perl itself walks whenever a module is B<use>d or B<require>d
@@ -180,13 +176,13 @@ can use this module in a very efficient way:
 Not only that will save you lots of lines, but it will always include new submodules without you having
 to go back to this one to include them.
 
-Each of the elements returned by the L<Submodules/find> method is an instance of L<Submodules::Result>,
+Each of the elements returned by the L<find|Submodules/find> method is an instance of L<Submodules::Result>,
 which is automagically stringified to the name of the module (as in Some::Module) but has
 useful methods that can do a lot more.
 
 =head1 EXPORT
 
-Nothing is exported by default. However, you can import a non OO version of L<Submodules/find> with the
+Nothing is exported by default. However, you can import a non OO version of L<find|Submodules/find> with the
 name that you prefere. For example, let's say you'd like that function to be called I<walk>.
 You'd then call this module like this:
 
@@ -202,7 +198,7 @@ You'd then call this module like this:
 
 You can use any name you want and it'll work as long as it is not already defined in that namespace.
 
-=head1 SUBROUTINES/METHODS
+=head1 METHODS
 
 =head2 find
 
@@ -228,12 +224,12 @@ Read the documentation for L<Submodules::Result> to learn about its own methods.
 
 =head2 Importing a custom 'find' name that is not object oriented
 
-You can import a non object oriented version of L<Submodules/find> that also accepts module names
+You can import a non object oriented version of L<find|Submodules/find> that also accepts module names
 without quoting them (barewords). This might be more for the taste of some and considered
 ugly by others. It all depends on you, nothing gets imported by default.
 
 You can chose any valid function name for it and it will be created as long as it is
-not already defined in that namespace. It will, just like L<Submodules/find>, return instances of
+not already defined in that namespace. It will, just like L<find|Submodules/find>, return instances of
 L<Submodules::Result>.
 
 For example:

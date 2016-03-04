@@ -20,9 +20,11 @@ no_index:
   directory:
   - t
   - inc
+  - fakelib
+  - fakelib2
 requires:
   File::Basename: '0'
   File::Find: '0'
   File::Spec: '0'
   perl: '5.006'
-version: '1.0004'
+version: '1.0006'

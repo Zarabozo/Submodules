@@ -4,8 +4,8 @@ use strict;
 use warnings;
 use Test::More;
 use lib 'lib';
-use lib 'fakelib2';
-use lib 'fakelib';
+use lib 't/fakelib2';
+use lib 't/fakelib';
 
 BEGIN {
     use_ok( 'Submodules', 'walk' ) || print "Bail out!\n";

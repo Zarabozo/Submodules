@@ -16,7 +16,9 @@
    "no_index" : {
       "directory" : [
          "t",
-         "inc"
+         "inc",
+         "fakelib",
+         "fakelib2"
       ]
    },
    "prereqs" : {
@@ -43,5 +45,5 @@
       }
    },
    "release_status" : "stable",
-   "version" : "1.0004"
+   "version" : "1.0006"
 }

@@ -8,7 +8,7 @@ use overload (
 	'""'		=> 'SCALAR',
 );
 our $AUTOLOAD;
-our $VERSION = '1.0004';
+our $VERSION = '1.0006';
 our @CARP_NOT = qw(Submodules);
 our $default_property = 'Module';
 our $SCALAR = sub {
@@ -100,13 +100,9 @@ __END__
 
 Submodules::Result - Efficient way to load or handle results from L<Submodules>.
 
-=head1 VERSION
-
-Version 1.0000
-
 =head1 SYNOPSIS
 
-This is the object returned by L<Submodules/find>. It has several methods that makes it
+This is the object returned by L<< Submodules->find|Submodules/find >>. It has several methods that makes it
 easy to handle the tasks that are more commonly needed for a module. It's automagically
 stringified to the name of the module (in B<Module::Name> format), but even inside string
 interpolation, you can access its properties as you would with a hashref:
@@ -169,7 +165,7 @@ directly from L<File::Spec>.
 
 =head2 RelPath
 
-Correspods to the relative path to the module. Similar to L<Submodules::Result/AbsPath> except for being relative to
+Correspods to the relative path to the module. Similar to L<AbsPath|Submodules::Result/AbsPath> except for being relative to
 the location of the current execution.
 
 =head2 Clobber
@@ -185,7 +181,7 @@ you know what you are doing and you actually intended to use this module for tha
 
 =head1 METHODS
 
-As mentioned in L<Submodules::Result/PROPERTIES>, all properties can be called as methods too. Besides that, there are
+As mentioned in L<PROPERTIES|Submodules::Result/PROPERTIES>, all properties can be called as methods too. Besides that, there are
 a few more useful methods:
 
 =head2 read
